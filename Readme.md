@@ -5,7 +5,7 @@ scrnaVis Tutorial
 `devtools::install_github("jackxiong2020/scrnaVis")`
 
 ### run seurat pipeline
-`run_seurat_pipline(object,runSCTransform=T,runHarmony=TRUE)`
+`run_seurat_pipeline(object,runSCTransform=T,runHarmony=TRUE)`
 
 ### Interactively explore your scRNA-seq data with shiny web
 `scrnaVis(object,markers)`
