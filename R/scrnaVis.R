@@ -317,8 +317,6 @@ heigth=function(x){
             tabBox(width = 12,
                    tabPanel(
                      HTML("<b>VlnPlot</b>"),
-                     div(
-                       style = "display: inline-block;vertical-align:top; width: 19%;"),
                        # downloadButton("Enri_VlnPlot",
                        #                HTML("<b>Download</b>"),
                        #                icon=icon("download"))),
@@ -328,8 +326,6 @@ heigth=function(x){
                      ),
                      tabPanel(
                        HTML("<b>FeaturePlot</b>"),
-                       div(
-                         style = "display: inline-block;vertical-align:top; width: 19%;"),
                          #downloadButton("Enri_FeaturePlot",
                          # HTML("<b>Download</b>"),
                          #icon=icon("download"))),
