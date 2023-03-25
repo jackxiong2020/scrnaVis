@@ -1,0 +1,38 @@
+Package: scrnaVis
+Title: Providing beautiful single-cell visualization figtures
+Version: 0.0.0.1
+Authors@R: 
+    person(given="Xiong", family="Yangjie", email="xiongyangjie2020@sibs.ac.cn", role = c("aut", "cre"))
+Description: 
+    This package can simply run base seurat pipeline from Seurat object to TSNE or UMAP.
+    You can define and draw beautiful figtures by yourself interactively using with web pages by shiny.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
+LazyData: true
+biocViews: 
+    AUCell, 
+    Nebulosa,
+    singscore,
+    ComplexHeatmap
+Imports: 
+    shiny,
+    Seurat,
+    gginnards,
+    shinydashboard,
+    msigdbr,
+    ggplot2,
+    ggsci,
+    dplyr,
+    ggstatsplot,
+    egg,
+    harmony,
+    ComplexHeatmap,
+    UCell (>= 2.3.1),
+    irGSEA (>= 1.1.3),
+Remotes: 
+    chuiqin/irGSEA,
+    carmonalab/UCell
