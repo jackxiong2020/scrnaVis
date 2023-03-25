@@ -22,7 +22,7 @@ This package provides multiple ways to interactively display your single-cell da
 }
 \examples{
 \donttest{
-  pbmc=readRDS(system.file("data","pbmc.rda",package="scRANvis"))
+  pbmc=readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
   scrnaVis(object=pbmc,markers=c("CD3E","CD3G","CD3D"))
 }
 }

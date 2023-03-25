@@ -8,20 +8,30 @@
 #' @export
 #' @examples
 #' \donttest{
-#'   pbmc=readRDS(system.file("data","pbmc.rda",package="scRANvis"))
+#'   pbmc=readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
 #'   scrnaVis(object=pbmc,markers=c("CD3E","CD3G","CD3D"))
 #' }
 scrnaVis <- function(object=NULL, markers=NULL) {
-  markers=base::unique(markers)
-  ident <- colnames(object@meta.data)
-  getsetdb <- c("H", "C2", "C5", "C8")
-  geneset <- c(
-    msigdbr::msigdbr("Homo sapiens", category = "H") %>% dplyr::distinct(gs_name) %>% .$gs_name,
-    msigdbr::msigdbr("Homo sapiens", category = "C2", subcategory = "CP:KEGG") %>% dplyr::distinct(gs_name) %>% .$gs_name,
-    msigdbr::msigdbr("Homo sapiens", category = "C5", subcategory = "BP") %>% dplyr::distinct(gs_name) %>% .$gs_name,
-    msigdbr::msigdbr("Homo sapiens", category = "C8") %>% dplyr::distinct(gs_name) %>% .$gs_name
-  )
-  gene <- row.names(object)
+gene_markers=unique(markers)
+ident <- colnames(object@meta.data)
+getsetdb <- c("H", "C2", "C5", "C8")
+geneset <- c(
+  msigdbr::msigdbr("Homo sapiens", category = "H") %>% dplyr::distinct(gs_name) %>% .$gs_name,
+  msigdbr::msigdbr("Homo sapiens", category = "C2", subcategory = "CP:KEGG") %>% dplyr::distinct(gs_name) %>% .$gs_name,
+  msigdbr::msigdbr("Homo sapiens", category = "C5", subcategory = "BP") %>% dplyr::distinct(gs_name) %>% .$gs_name,
+  msigdbr::msigdbr("Homo sapiens", category = "C8") %>% dplyr::distinct(gs_name) %>% .$gs_name
+)
+gene <- row.names(object)
+# adapt to height
+heigth=function(x){
+  if(length(x) %in% c(0:8)){
+    return("400px")
+  }else if(length(x) %in% c(9:16)){
+    return("600px")
+  }else if(length(x) > 16){
+    return("800px")
+  }
+}
   ############################## > Header  ##################################
   header <- dashboardHeader(title = "ScRNA-seq Vis")
 
@@ -158,16 +168,8 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 )
               ),
               br(),
-              plotOutput("DotPlot", width = "80%",height=paste0(
-                if(length(markers) %in% c(0:8)){
-                  return("400px")
-                }else if(length(markers) %in% c(9:16)){
-                  return("600px")
-                }else if(length(markers) > 16){
-                  return("800px")
-                }
-              ))
-            ),
+              plotOutput("DotPlot", width = "80%",height=heigth(gene_markers)
+                         )),
             tabPanel(
               HTML("<b>HeatPlot</b>"),
               br(),
@@ -180,17 +182,8 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 )
               ),
               br(),
-              plotOutput("HeatmapPlot", width = "80%",height=paste0(
-                if(length(markers) %in% c(0:8)){
-                  return("400px")
-                }else if(length(markers) %in% c(9:16)){
-                  return("600px")
-                }else if(length(markers) > 16){
-                  return("800px")
-                }
-              ))
-            )
-          )
+              plotOutput("HeatmapPlot", width = "80%",height=heigth(gene_markers))
+          ))
         ),
         ############################## > FeaturePlot  ##################################
 
@@ -332,7 +325,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                        br(),
                        plotOutput("Enri_VlnPlot", width = "80%", height =
                                     "400px")
-                     ),
+                     )),
                      tabPanel(
                        HTML("<b>FeaturePlot</b>"),
                        div(
@@ -348,9 +341,9 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                      )
                    ))
           )
-        ))
+        )
+        )
       )
-    )
   )
       ui <- dashboardPage(header, sidebar, body)
 
@@ -363,7 +356,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             closeButton = F,
             action = a(href = "javascript:location.reload();")
           )
-          ############################## > 维度  ##################################
+          ############################## > TSNE  ##################################
           # TNSE
           p1 <- TSNEPlot(object,
                         group.by = input$select_ident,
@@ -379,7 +372,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               ggsave(p1, filename = file)
             }
           )
-          ############################## > 统计  ##################################
+          ############################## > Proportion statistics  ##################################
           Prop_data <- object@meta.data
 
           PropPlot <- function(group, groupBy) {
@@ -456,7 +449,6 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           }
 
           p2 <- PropPlot(input$select_ident, input$select_groupBy)
-          p2
           output$PropPlot <- renderPlot({
             p2
           })
@@ -473,7 +465,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           ############################## > marker Visualization  ##################################
           # Dotplot
           p3 <- DotPlot(object,
-                       features = markers,
+                       features = gene_markers,
                        group.by = input$select_ident) +
             coord_flip() + theme_bw() +
             theme(
@@ -510,7 +502,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             heatmap_AveE <- as.data.frame(
               AverageExpression(
                 object,
-                features = markers,
+                features = gene_markers,
                 verbose = F,
                 slot = "data",
                 group.by = input$select_ident
@@ -540,7 +532,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             heatmap_AveE <- as.data.frame(
               AverageExpression(
                 object,
-                features = markers,
+                features = gene_markers,
                 verbose = F,
                 slot = "data",
                 group.by = input$select_ident
