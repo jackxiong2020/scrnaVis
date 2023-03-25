@@ -12,6 +12,7 @@
 #'   scrnaVis(object=pbmc,markers=c("CD3E","CD3G","CD3D"))
 #' }
 scrnaVis <- function(object=NULL, markers=NULL) {
+  markers=base::unique(markers)
   ident <- colnames(object@meta.data)
   getsetdb <- c("H", "C2", "C5", "C8")
   geneset <- c(
@@ -472,7 +473,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           ############################## > marker Visualization  ##################################
           # Dotplot
           p3 <- DotPlot(object,
-                       features = base::unique(markers),
+                       features = markers,
                        group.by = input$select_ident) +
             coord_flip() + theme_bw() +
             theme(
