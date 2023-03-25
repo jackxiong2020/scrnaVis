@@ -4,14 +4,14 @@
 #' @param markers  a gene list of cell-specific expression
 #' @import irGSEA gginnards msigdbr egg ggsci ggplot2 ComplexHeatmap dplyr Seurat
 #' @import ggstatsplot shinydashboard shiny
-#' @return shiny 
+#' @return shiny
 #' @export
 #' @examples
 #' \donttest{
-#'   pbmc=read.RDS(system.file("data","pbmc.rda",package="scRANvis"))
+#'   pbmc=readRDS(system.file("data","pbmc.rda",package="scRANvis"))
 #'   scrnaVis(object=pbmc,markers=c("CD3E","CD3G","CD3D"))
 #' }
-scrnaVis <- function(object=NULL, markers=NULL) { 
+scrnaVis <- function(object=NULL, markers=NULL) {
   ident <- colnames(object@meta.data)
   getsetdb <- c("H", "C2", "C5", "C8")
   geneset <- c(
@@ -23,7 +23,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
   gene <- row.names(object)
   ############################## > Header  ##################################
   header <- dashboardHeader(title = "ScRNA-seq Vis")
-  
+
   ############################## > sidebar  ##################################
   sidebar <- dashboardSidebar(sidebarMenu(
     menuItem(
@@ -37,10 +37,10 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       icon = icon("bolt")
     )
   ))
-  
+
   ############################## > body  ##################################
-  
-  
+
+
   body = dashboardBody(
     tabItems(
       tabItem(
@@ -78,10 +78,10 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               style = "color:red",
               icon = icon("paper-plane")
             )
-            
+
           )
         ),
-        
+
         ############################## > TSNE  ##################################
         fluidRow(column(
           6,
@@ -157,7 +157,15 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 )
               ),
               br(),
-              plotOutput("DotPlot", width = "80%")
+              plotOutput("DotPlot", width = "80%",height=paste0(
+                if(length(markers) %in% c(0:8)){
+                  return("400px")
+                }else if(length(markers) %in% c(9:16)){
+                  return("600px")
+                }else if(length(markers) > 16){
+                  return("800px")
+                }
+              ))
             ),
             tabPanel(
               HTML("<b>HeatPlot</b>"),
@@ -171,12 +179,20 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 )
               ),
               br(),
-              plotOutput("HeatmapPlot", width = "80%")
+              plotOutput("HeatmapPlot", width = "80%",height=paste0(
+                if(length(markers) %in% c(0:8)){
+                  return("400px")
+                }else if(length(markers) %in% c(9:16)){
+                  return("600px")
+                }else if(length(markers) > 16){
+                  return("800px")
+                }
+              ))
             )
           )
         ),
         ############################## > FeaturePlot  ##################################
-        
+
         column(
           6,
           box(
@@ -294,7 +310,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                   )
                 )
               )
-              
+
             ),
             div(style = "display: inline-block;vertical-align:top; width: 49%;",
                 actionButton(
@@ -327,7 +343,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                          plotOutput("Enri_FeaturePlot", width = "80%", height =
                                       "400px")
                        )
-                       
+
                      )
                    ))
           )
@@ -336,7 +352,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
     )
   )
       ui <- dashboardPage(header, sidebar, body)
-      
+
       server <- function(input, output, session) {
         observeEvent(input$start, {
           #显示运行
@@ -364,7 +380,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           )
           ############################## > 统计  ##################################
           Prop_data <- object@meta.data
-          
+
           PropPlot <- function(group, groupBy) {
             Prop_data <- object@meta.data %>%
               dplyr::select({
@@ -386,7 +402,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                   groupBy
                 }
               })
-            
+
             ## plot proportion
             Prop_fig <- ggbarstats(
               data = Prop_data,
@@ -437,7 +453,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               )
             delete_layers(x = Prop_fig, match_type = 'GeomText')
           }
-          
+
           p2 <- PropPlot(input$select_ident, input$select_groupBy)
           p2
           output$PropPlot <- renderPlot({
@@ -486,8 +502,8 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               ggsave(p3, filename = file)
             }
           )
-          
-          
+
+
           # heatmapPlot
           if (is.null(object@assays$SCT)) {
             heatmap_AveE <- as.data.frame(
@@ -550,7 +566,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             )
             heatmap@row_names_param$gp <- grid::gpar(fontface = "italic")
           }
-          
+
           output$HeatmapPlot <- renderPlot({
             heatmap
           })
@@ -565,7 +581,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               dev.off()
             }
           )
-          
+
           # featurePlot
           observeEvent(input$submit_gene, {
             p3 <- FeaturePlot(
@@ -589,8 +605,8 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               }
             )
           })
-          
-          
+
+
           ############################## > GSVA  ##################################
           observe({
             x <- input$select_geneset_db
@@ -611,7 +627,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                                 choices = y)
             }
           })
-          
+
           observeEvent(input$submit_gene_db, {
             if (is.null(object@assays$SCT)) {
               GSEA <- irGSEA::irGSEA.score(
@@ -684,7 +700,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 dev.off()
               }
             )
-            
+
             # featurePlot
             observeEvent(input$submit_geneset, {
               output$Enri_FeaturePlot <- renderPlot({
@@ -695,7 +711,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                   reduction = "tsne"
                 )
               })
-              
+
               # VlnPlot
               output$Enri_VlnPlot <- renderPlot({
                 irGSEA::irGSEA.halfvlnplot(
@@ -704,15 +720,15 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                   show.geneset = gsub("_", "-", input$select_geneset)
                 )
               })
-              
+
             })
-            
-            
-            
+
+
+
           })
         })
       }
-      
+
       ## run shiny
       shinyApp(ui, server)
       }

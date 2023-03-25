@@ -1,18 +1,18 @@
 #' @title run_seurat_pipeline
-#' @details 
-#'   this function can simply run base seurat pipeline from Seurat object to 
+#' @details
+#'   this function can simply run base seurat pipeline from Seurat object to
 #'   TSNE or UMAP. However, we do not provide data quality control services.
 #'   So please do some common quality control on the data first,such as :
 #'   nFeature RNA; percent mt; cellcycle; double cells and more.
 #' @param object seurat object
 #' @param runSCTransform TRUE or FALSE,Deciding whether to standardize the data with sctransform
-#' @param runharmony  TRUE or FALSE,Deciding whether to remove batch use harmony
+#' @param runHarmony  TRUE or FALSE,Deciding whether to remove batch use harmony
 #' @return a seurat object
-#' @export 
-#' @import Seurat harmony dplyr 
-#' @examples 
+#' @export
+#' @import Seurat harmony dplyr
+#' @examples
 #'  \donttest{
-#'  pbmc=read.RDS(system.file("data","pbmc.rda",package="scrnaVis"))
+#'  pbmc=readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
 #'  run_seurat_pipeline(object=pbmc,runSCTransform=TRUE,runHarmony=TRUE)
 #'  }
 run_seurat_pipeline <- function(object = NULL,
@@ -36,7 +36,7 @@ run_seurat_pipeline <- function(object = NULL,
         FindNeighbors(reduction = "pca") %>%
         FindClusters(resolution = seq(0, 1.2, .2))
     }
-    
+
     ## do normalise
   } else{
     scRNA %<>% NormalizeData(

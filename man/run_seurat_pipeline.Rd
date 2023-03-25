@@ -11,7 +11,7 @@ run_seurat_pipeline(object = NULL, runSCTransform = TRUE, runHarmony = TRUE)
 
 \item{runSCTransform}{TRUE or FALSE,Deciding whether to standardize the data with sctransform}
 
-\item{runharmony}{TRUE or FALSE,Deciding whether to remove batch use harmony}
+\item{runHarmony}{TRUE or FALSE,Deciding whether to remove batch use harmony}
 }
 \value{
 a seurat object
@@ -27,7 +27,7 @@ nFeature RNA; percent mt; cellcycle; double cells and more.
 }
 \examples{
  \donttest{
- pbmc=read.RDS(system.file("data","pbmc.rda",package="scrnaVis"))
+ pbmc=readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
  run_seurat_pipeline(object=pbmc,runSCTransform=TRUE,runHarmony=TRUE)
  }
 }
