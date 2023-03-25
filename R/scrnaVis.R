@@ -148,7 +148,7 @@ heigth=function(x){
               )
             ),
             br(),
-            plotOutput("PropPlot", width = "80%", height = "400px")
+            plotOutput("PropPlot", height = "400px")
           )
         )),
         fluidRow(column(
