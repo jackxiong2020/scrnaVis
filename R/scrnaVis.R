@@ -12,7 +12,7 @@
 #'   scrnaVis(object=pbmc,markers=c("CD3E","CD3G","CD3D"))
 #' }
 scrnaVis <- function(object=NULL, markers=NULL) {
-  gene_markers=unique(markers)
+  markers=base::unique(markers)
   ident <- colnames(object@meta.data)
   getsetdb <- c("H", "C2", "C5", "C8")
   geneset <- c(
@@ -159,11 +159,11 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               ),
               br(),
               plotOutput("DotPlot", width = "80%",height=paste0(
-                if(length(gene_markers) %in% c(0:8)){
+                if(length(markers) %in% c(0:8)){
                   return("400px")
-                }else if(length(gene_markers) %in% c(9:16)){
+                }else if(length(markers) %in% c(9:16)){
                   return("600px")
-                }else if(length(gene_markers) > 16){
+                }else if(length(markers) > 16){
                   return("800px")
                 }
               ))
@@ -181,11 +181,11 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               ),
               br(),
               plotOutput("HeatmapPlot", width = "80%",height=paste0(
-                if(length(gene_markers) %in% c(0:8)){
+                if(length(markers) %in% c(0:8)){
                   return("400px")
-                }else if(length(gene_markers) %in% c(9:16)){
+                }else if(length(markers) %in% c(9:16)){
                   return("600px")
-                }else if(length(gene_markers) > 16){
+                }else if(length(markers) > 16){
                   return("800px")
                 }
               ))
@@ -473,7 +473,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           ############################## > marker Visualization  ##################################
           # Dotplot
           p3 <- DotPlot(object,
-                       features = gene_markers,
+                       features = markers,
                        group.by = input$select_ident) +
             coord_flip() + theme_bw() +
             theme(
@@ -510,7 +510,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             heatmap_AveE <- as.data.frame(
               AverageExpression(
                 object,
-                features = gene_markers,
+                features = markers,
                 verbose = F,
                 slot = "data",
                 group.by = input$select_ident
@@ -540,7 +540,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             heatmap_AveE <- as.data.frame(
               AverageExpression(
                 object,
-                features = gene_markers,
+                features = markers,
                 verbose = F,
                 slot = "data",
                 group.by = input$select_ident
