@@ -472,7 +472,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           ############################## > marker Visualization  ##################################
           # Dotplot
           p3 <- DotPlot(object,
-                       features = unique(markers),
+                       features = base::unique(markers),
                        group.by = input$select_ident) +
             coord_flip() + theme_bw() +
             theme(
