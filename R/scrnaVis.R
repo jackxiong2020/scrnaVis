@@ -318,18 +318,18 @@ heigth=function(x){
                    tabPanel(
                      HTML("<b>VlnPlot</b>"),
                      div(
-                       style = "display: inline-block;vertical-align:top; width: 19%;",
+                       style = "display: inline-block;vertical-align:top; width: 19%;"),
                        # downloadButton("Enri_VlnPlot",
                        #                HTML("<b>Download</b>"),
                        #                icon=icon("download"))),
                        br(),
                        plotOutput("Enri_VlnPlot", width = "80%", height =
                                     "400px")
-                     )),
+                     ),
                      tabPanel(
                        HTML("<b>FeaturePlot</b>"),
                        div(
-                         style = "display: inline-block;vertical-align:top; width: 19%;",
+                         style = "display: inline-block;vertical-align:top; width: 19%;"),
                          #downloadButton("Enri_FeaturePlot",
                          # HTML("<b>Download</b>"),
                          #icon=icon("download"))),
@@ -343,7 +343,6 @@ heigth=function(x){
           )
         )
         )
-      )
   )
       ui <- dashboardPage(header, sidebar, body)
 
@@ -373,8 +372,6 @@ heigth=function(x){
             }
           )
           ############################## > Proportion statistics  ##################################
-          Prop_data <- object@meta.data
-
           PropPlot <- function(group, groupBy) {
             Prop_data <- object@meta.data %>%
               dplyr::select({
@@ -450,7 +447,7 @@ heigth=function(x){
 
           p2 <- PropPlot(input$select_ident, input$select_groupBy)
           output$PropPlot <- renderPlot({
-            p2
+            PropPlot(input$select_ident, input$select_groupBy)
           })
           output$download_PropPlot <- downloadHandler(
             filename = function() {
