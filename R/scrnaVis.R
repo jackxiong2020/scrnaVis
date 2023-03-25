@@ -3,7 +3,7 @@
 #' @param object a seurat object which has run seurat pipeline
 #' @param markers  a gene list of cell-specific expression
 #' @import irGSEA gginnards msigdbr egg ggsci ggplot2 ComplexHeatmap dplyr Seurat
-#' @import ggstatsplot shinydashboard shiny
+#' @import ggstatsplot shinydashboard shiny base
 #' @return shiny
 #' @export
 #' @examples
