@@ -567,7 +567,9 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
-          ggsave(p4, filename = file,width=10,height=10)
+          pdf(filename=file)
+          print(p4)
+          dev.off()
         }
       ) 
       observeEvent(input$submit_geneset, {
