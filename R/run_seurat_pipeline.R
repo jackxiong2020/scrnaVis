@@ -12,12 +12,10 @@
 #' @import Seurat harmony dplyr
 #' @examples
 #'  \donttest{
-#'  pbmc=readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
-#'  run_seurat_pipeline(object=pbmc,runSCTransform=TRUE,runHarmony=TRUE)
+#'    pbmc <- readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
+#'    run_seurat_pipeline(object=pbmc,runSCTransform=TRUE,runHarmony=TRUE)
 #'  }
-run_seurat_pipeline <- function(object = NULL,
-                                runSCTransform = TRUE,
-                                runHarmony = TRUE) {
+run_seurat_pipeline <- function(object = NULL,runSCTransform = TRUE,runHarmony = TRUE) {
   ## do SCTranfrom
   if (runSCTransform == TRUE) {
     scRNA <- object %>% SCTransform(return.only.var.genes = T) %>%
@@ -30,45 +28,35 @@ run_seurat_pipeline <- function(object = NULL,
         FindNeighbors(reduction = "harmony") %>%
         FindClusters(resolution = seq(0, 1.2, .2))
       # just a sample, we do not need to remove batch
-    } else{
-      scRNA %<>% RunTSNE(reduction = "pca", dims = 1:20) %>%
-        RunUMAP(reduction = "pca", dims = 1:20) %>%
-        FindNeighbors(reduction = "pca") %>%
-        FindClusters(resolution = seq(0, 1.2, .2))
-    }
+    } else {
+        scRNA %<>% RunTSNE(reduction = "pca", dims = 1:20) %>%
+          RunUMAP(reduction = "pca", dims = 1:20) %>%
+          FindNeighbors(reduction = "pca") %>%
+          FindClusters(resolution = seq(0, 1.2, .2))
+      }
 
     ## do normalise
-  } else{
-    scRNA %<>% NormalizeData(
-      object,
-      normalization.method = "LogNormalize",
-      scale.factor = 10000,
-      assay = "RNA"
-    ) %>%
-      FindVariableFeatures(
-        scRNA,
-        selection.method = "vst",
-        nfeatures = 3000,
-        assay = "RNA"
-      ) %>%
+  } else {
+      scRNA %<>% NormalizeData(object,normalization.method = "LogNormalize",scale.factor = 10000,assay = "RNA") %>%
+      FindVariableFeatures(scRNA,selection.method = "vst",nfeatures = 3000,assay = "RNA") %>%
       ScaleData(scRNA, features = VariableFeatures(scRNA), assay = "RNA") %>%
       RunPCA(assay = "RNA")
     # do harmony to remove batch
-    if (runHarmony == TRUE) {
-      scRNA %<>% RunHarmony(group.by.vars = "orig.ident") %>%
-        RunTSNE(reduction = "harmony", dims = 1:20) %>%
-        RunUMAP(reduction = "harmony", dims = 1:20) %>%
-        FindNeighbors(reduction = "harmony") %>%
-        FindClusters(resolution = seq(0, 1.2, .2))
+      if (runHarmony == TRUE) {
+        scRNA %<>% RunHarmony(group.by.vars = "orig.ident") %>%
+          RunTSNE(reduction = "harmony", dims = 1:20) %>%
+          RunUMAP(reduction = "harmony", dims = 1:20) %>%
+          FindNeighbors(reduction = "harmony") %>%
+          FindClusters(resolution = seq(0, 1.2, .2))
       # just a sample, we do not need to remove batch
-    } else{
-      scRNA %<>% RunTSNE(reduction = "pca", dims = 1:20) %>%
-        RunUMAP(reduction = "pca", dims = 1:20) %>%
-        FindNeighbors(reduction = "pca") %>%
-        FindClusters(resolution = seq(0, 1.2, .2))
+      } else{
+        scRNA %<>% RunTSNE(reduction = "pca", dims = 1:20) %>%
+          RunUMAP(reduction = "pca", dims = 1:20) %>%
+          FindNeighbors(reduction = "pca") %>%
+          FindClusters(resolution = seq(0, 1.2, .2))
+        }
     }
+    return(scRNA)
   }
-  return(scRNA)
-}
 
 

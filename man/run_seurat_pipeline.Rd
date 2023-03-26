@@ -27,7 +27,7 @@ nFeature RNA; percent mt; cellcycle; double cells and more.
 }
 \examples{
  \donttest{
- pbmc=readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
- run_seurat_pipeline(object=pbmc,runSCTransform=TRUE,runHarmony=TRUE)
+   pbmc <- readRDS(system.file("data","pbmc.rda",package="scrnaVis"))
+   run_seurat_pipeline(object=pbmc,runSCTransform=TRUE,runHarmony=TRUE)
  }
 }
