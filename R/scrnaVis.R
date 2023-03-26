@@ -580,7 +580,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
-          pdf(file=file)
+          pdf(file=file,width=16,height=10)
           print(p4)
           dev.off()
         }
