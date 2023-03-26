@@ -3,7 +3,7 @@ scrnaVis Tutorial
 ---
 ### pre install
 # install packages from CRAN
-cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
+`cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
                    "RobustRankAggreg", "tibble", "reshape2", "ggsci",
                    "tidyr", "aplot", "ggfun", "ggplotify", "ggridges", 
                    "gghalves", "Seurat", "SeuratObject", "methods", 
@@ -29,7 +29,7 @@ if (!requireNamespace("UCell", quietly = TRUE)) {
 if (!requireNamespace("irGSEA", quietly = TRUE)) { 
     devtools::install_github("chuiqin/irGSEA")
 }
-
+`
 ### install 
 `devtools::install_github("jackxiong2020/scrnaVis")`
 
