@@ -557,7 +557,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         top = 30,
         show.geneset = NULL,
         heatmap.width=25,
-        heatmap.heigth=16
+        heatmap.heigh=16
       )
       output$Enri_HeatmapPlot <- renderPlot({
         p4
