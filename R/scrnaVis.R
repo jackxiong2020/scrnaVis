@@ -250,7 +250,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           )
         ),
         fluidRow(
-          column(width=8,
+          column(width=7,
             box(
               width = 12,
               height = "600px",
@@ -268,7 +268,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               plotOutput("Enri_HeatmapPlot", width = "600px", height = "500px")
             )
           ),
-          column(width=4,
+          column(width=5,
             box(
               width = 12,
               div(
@@ -476,7 +476,9 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "HeatmapPlot.pdf"
         },
         content = function(file) {
-          ggsave(heatmap, filename = file,width=10,height=10)
+          pdf(file=file,width=14,height=10)
+          print(heatmap)
+          dev.off()
         }
       )
       # featurePlot
@@ -556,18 +558,18 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         method = "AUCell",
         top = 30,
         show.geneset = NULL,
-        heatmap.width=25,
-        heatmap.heigh=16
+        heatmap.width=22,
+        heatmap.heigh=14
       )
       output$Enri_HeatmapPlot <- renderPlot({
-        p4
+        print(p4）
       })
       output$download_Enri_HeatmapPlot <- downloadHandler(
         filename = function() {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
-          pdf(file=file)
+          pdf(file=file,width=14,height=8)
           print(p4)
           dev.off()
         }
