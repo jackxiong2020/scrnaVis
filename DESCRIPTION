@@ -34,5 +34,6 @@ Imports:
     UCell (>= 2.3.1),
     irGSEA (>= 1.1.3),
 Remotes: 
-    chuiqin/irGSEA,
     carmonalab/UCell
+    chuiqin/irGSEA,
+ 
