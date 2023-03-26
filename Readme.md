@@ -3,32 +3,36 @@ scrnaVis Tutorial
 ---
 ### pre install
 # install packages from CRAN
-`cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
+``` r
+# install packages from CRAN
+cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
                    "RobustRankAggreg", "tibble", "reshape2", "ggsci",
                    "tidyr", "aplot", "ggfun", "ggplotify", "ggridges", 
                    "gghalves", "Seurat", "SeuratObject", "methods", 
                    "devtools", "BiocManager","data.table","doParallel",
-                   "doRNG","gginnards","egg","ggsci","ggplot2","Seurat","ggstatsplot","shinydashboard","shiny")`
-`if (!requireNamespace(cran.packages, quietly = TRUE)) { 
+                   "doRNG","gginnards","egg","ggsci","ggplot2","Seurat",
+                   "ggstatsplot","shinydashboard","shiny")
+if (!requireNamespace(cran.packages, quietly = TRUE)) { 
     install.packages(cran.packages, ask = F, update = F)
-}`
+}
 #> Warning: replacing previous import 'lifecycle::last_warnings' by
 #> 'rlang::last_warnings' when loading 'pillar'
 
 # install packages from Bioconductor
-`bioconductor.packages <- c("GSEABase", "AUCell", "SummarizedExperiment", 
+bioconductor.packages <- c("GSEABase", "AUCell", "SummarizedExperiment", 
                            "singscore", "GSVA", "ComplexHeatmap", "ggtree", 
-                           "Nebulosa")`
-`if (!requireNamespace(bioconductor.packages, quietly = TRUE)) { 
+                           "Nebulosa")
+if (!requireNamespace(bioconductor.packages, quietly = TRUE)) { 
     BiocManager::install(bioconductor.packages, ask = F, update = F)
-}`
+}
 
-`if (!requireNamespace("UCell", quietly = TRUE)) { 
+if (!requireNamespace("UCell", quietly = TRUE)) { 
     devtools::install_github("carmonalab/UCell")
-}`
-`if (!requireNamespace("irGSEA", quietly = TRUE)) { 
+}
+if (!requireNamespace("irGSEA", quietly = TRUE)) { 
     devtools::install_github("chuiqin/irGSEA")
-}`
+}
+```
 
 ### install 
 `devtools::install_github("jackxiong2020/scrnaVis")`
