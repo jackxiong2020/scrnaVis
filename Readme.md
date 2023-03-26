@@ -2,7 +2,6 @@
 scrnaVis Tutorial 
 ---
 ### pre install
-# install packages from CRAN
 ``` r
 # install packages from CRAN
 cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
