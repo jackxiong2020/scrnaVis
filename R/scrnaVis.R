@@ -561,15 +561,15 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       )
       output$Enri_HeatmapPlot <- renderPlot({
         p4
-        output$download_Enri_HeatmapPlot <- downloadHandler(
+      })
+      output$download_Enri_HeatmapPlot <- downloadHandler(
         filename = function() {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
           ggsave(p4, filename = file,width=10,height=10)
         }
-      )
-      })
+      ) 
       observeEvent(input$submit_geneset, {
         # featurePlot
         output$Enri_FeaturePlot <- renderPlot(
