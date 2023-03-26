@@ -3,7 +3,7 @@
 #' @param object a seurat object which has run seurat pipeline
 #' @param markers  a gene list of cell-specific expression
 #' @import irGSEA gginnards msigdbr egg ggsci ggplot2 ComplexHeatmap dplyr Seurat
-#' @import ggstatsplot shinydashboard shiny
+#' @import ggstatsplot shinydashboard shiny Cairo
 #' @return shiny
 #' @export
 #' @examples
@@ -398,7 +398,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "PropPlot.pdf"
         },
         content = function(file) {
-          pdf(file)
+          Cairo::CairoPDF(file)
             p2
           dev.off()
         }
@@ -478,7 +478,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "HeatmapPlot.pdf"
         },
         content = function(file) {
-          pdf(file)
+          Cairo::CairoPDF(file)
             heatmap
           dev.off()
         }
@@ -569,7 +569,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
-          pdf(file)
+          Cairo::CairoPDF(file)
             p4
           dev.off()
         }
