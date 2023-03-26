@@ -562,22 +562,16 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         heatmap.heigh=14
       )
       output$Enri_HeatmapPlot <- renderPlot({
-        irGSEA::irGSEA.heatmap(
-          object = result.dge,
-          method = "AUCell",
-          top = 30,
-          show.geneset = NULL,
-          heatmap.width=22,
-          heatmap.heigh=14
-        )
+        p4
       })
+        
       output$download_Enri_HeatmapPlot <- downloadHandler(
         filename = function() {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
           pdf(file=file,width=14,height=8)
-          print(p4)
+          p4
           dev.off()
         }
       ) 
