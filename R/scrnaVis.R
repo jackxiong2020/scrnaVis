@@ -265,7 +265,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 )
               ),
               br(),
-              plotOutput("Enri_HeatmapPlot", width = "100%", height = "400px")
+              plotOutput("Enri_HeatmapPlot", width = "600px", height = "500px")
             )
           ),
           column(6,
