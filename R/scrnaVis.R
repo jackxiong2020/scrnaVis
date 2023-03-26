@@ -558,7 +558,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         method = "AUCell",
         top = 30,
         show.geneset = NULL,
-        heatmap.width=22,
+        heatmap.width=18,
         heatmap.heigh=14
       )
       output$Enri_HeatmapPlot <- renderPlot({
@@ -571,7 +571,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         },
         content = function(file) {
           pdf(file=file,width=14,height=8)
-          p4
+          print(p4)
           dev.off()
         }
       ) 
