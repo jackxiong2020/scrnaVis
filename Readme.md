@@ -10,7 +10,7 @@ cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
                    "gghalves", "Seurat", "SeuratObject", "methods", 
                    "devtools", "BiocManager","data.table","doParallel",
                    "doRNG","gginnards","egg","ggsci","ggplot2","Seurat",
-                   "ggstatsplot","shinydashboard","shiny")
+                   "ggstatsplot","shinydashboard","shiny","Cairo")
 if (!requireNamespace(cran.packages, quietly = TRUE)) { 
     install.packages(cran.packages, ask = F, update = F)
 }
