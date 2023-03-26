@@ -265,7 +265,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 )
               ),
               br(),
-              plotOutput("Enri_HeatmapPlot", width = 6.5, height = "500px")
+              plotOutput("Enri_HeatmapPlot", width = 7, height = "500px")
             )
           ),
           column(width=5,
@@ -558,7 +558,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         method = "AUCell",
         top = 30,
         show.geneset = NULL,
-        heatmap.width=18,
+        heatmap.width=17,
         heatmap.heigh=14
       )
       output$Enri_HeatmapPlot <- renderPlot({
