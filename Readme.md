@@ -14,8 +14,6 @@ cran.packages <- c("msigdbr", "dplyr", "purrr", "stringr","magrittr",
 if (!requireNamespace(cran.packages, quietly = TRUE)) { 
     install.packages(cran.packages, ask = F, update = F)
 }
-#> Warning: replacing previous import 'lifecycle::last_warnings' by
-#> 'rlang::last_warnings' when loading 'pillar'
 
 # install packages from Bioconductor
 bioconductor.packages <- c("GSEABase", "AUCell", "SummarizedExperiment", 
