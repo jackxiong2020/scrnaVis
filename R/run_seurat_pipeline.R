@@ -38,9 +38,9 @@ run_seurat_pipeline <- function(object = NULL,runSCTransform = TRUE,runHarmony =
     ## do normalise
   } else {
       scRNA %<>% NormalizeData(object,normalization.method = "LogNormalize",scale.factor = 10000,assay = "RNA") %>%
-      FindVariableFeatures(scRNA,selection.method = "vst",nfeatures = 3000,assay = "RNA") %>%
-      ScaleData(scRNA, features = VariableFeatures(scRNA), assay = "RNA") %>%
-      RunPCA(assay = "RNA")
+        FindVariableFeatures(selection.method = "vst",nfeatures = 3000,assay = "RNA") 
+      scRNA %<>% ScaleData(features = VariableFeatures(scRNA), assay = "RNA") %>%
+        RunPCA(assay = "RNA")
     # do harmony to remove batch
       if (runHarmony == TRUE) {
         scRNA %<>% RunHarmony(group.by.vars = "orig.ident") %>%
