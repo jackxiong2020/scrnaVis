@@ -555,7 +555,9 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         object = result.dge,
         method = "AUCell",
         top = 30,
-        show.geneset = NULL
+        show.geneset = NULL,
+        heatmap.width=25,
+        heatmap.heigth=16
       )
       output$Enri_HeatmapPlot <- renderPlot({
         p4
