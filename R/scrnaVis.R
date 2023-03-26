@@ -398,9 +398,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "PropPlot.pdf"
         },
         content = function(file) {
-          Cairo::CairoPDF(file)
-            p2
-          dev.off()
+          ggsave(p2, filename = file)
         }
       )
       ############################## > marker Visualization  ##################################
@@ -478,9 +476,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "HeatmapPlot.pdf"
         },
         content = function(file) {
-          Cairo::CairoPDF(file)
-            heatmap
-          dev.off()
+          ggsave(heatmap, filename = file,width=10,height=10)
         }
       )
       # featurePlot
@@ -569,9 +565,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "Enriment_HeatmapPlot.pdf"
         },
         content = function(file) {
-          Cairo::CairoPDF(file)
-            p4
-          dev.off()
+          ggsave(p4, filename = file,width=10,height=10)
         }
       )
 
