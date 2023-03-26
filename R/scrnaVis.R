@@ -250,7 +250,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           )
         ),
         fluidRow(
-          column(6,
+          column(8,
             box(
               width = 12,
               height = "600px",
@@ -268,7 +268,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               plotOutput("Enri_HeatmapPlot", width = "600px", height = "500px")
             )
           ),
-          column(6,
+          column(4,
             box(
               width = 12,
               div(
@@ -561,8 +561,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       )
       output$Enri_HeatmapPlot <- renderPlot({
         p4
-      })
-      output$download_Enri_HeatmapPlot <- downloadHandler(
+        output$download_Enri_HeatmapPlot <- downloadHandler(
         filename = function() {
           "Enriment_HeatmapPlot.pdf"
         },
@@ -570,7 +569,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           ggsave(p4, filename = file,width=10,height=10)
         }
       )
-
+      })
       observeEvent(input$submit_geneset, {
         # featurePlot
         output$Enri_FeaturePlot <- renderPlot(
