@@ -250,7 +250,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           )
         ),
         fluidRow(
-          column(8,
+          column(width=8,
             box(
               width = 12,
               height = "600px",
@@ -268,7 +268,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
               plotOutput("Enri_HeatmapPlot", width = "600px", height = "500px")
             )
           ),
-          column(4,
+          column(width=4,
             box(
               width = 12,
               div(
