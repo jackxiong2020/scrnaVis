@@ -555,6 +555,14 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         method = "AUCell"
       )
             # 热图
+      ir.heatmap <- irGSEA::irGSEA.heatmap(
+        object = result.dge,
+        method = "AUCell",
+        top = 30,
+        show.geneset = NULL,
+        heatmap.width=22,
+        heatmap.heigh=14
+      )
       p4 <- irGSEA::irGSEA.heatmap(
         object = result.dge,
         method = "AUCell",
@@ -564,7 +572,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         heatmap.heigh=14
       )
       output$Enri_HeatmapPlot <- renderPlot({
-        p4
+        ir.heatmap
       })
         
       output$download_Enri_HeatmapPlot <- downloadHandler(
@@ -573,7 +581,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         },
         content = function(file) {
           pdf(file=file)
-          p4
+          print(p4)
           dev.off()
         }
       ) 
