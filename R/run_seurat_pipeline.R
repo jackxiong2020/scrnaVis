@@ -37,7 +37,7 @@ run_seurat_pipeline <- function(object = NULL,runSCTransform = TRUE,runHarmony =
 
     ## do normalise
   } else {
-      scRNA %<>% NormalizeData(object,normalization.method = "LogNormalize",scale.factor = 10000,assay = "RNA") %>%
+      scRNA <- NormalizeData(object,normalization.method = "LogNormalize",scale.factor = 10000,assay = "RNA") %>%
         FindVariableFeatures(selection.method = "vst",nfeatures = 3000,assay = "RNA") 
       scRNA %<>% ScaleData(features = VariableFeatures(scRNA), assay = "RNA") %>%
         RunPCA(assay = "RNA")
