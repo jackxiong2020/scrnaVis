@@ -12,7 +12,7 @@ scrnaVis(object = NULL, markers = NULL)
 \item{markers}{a gene list of cell-specific expression}
 }
 \value{
-shiny
+shiny web
 }
 \description{
 scrnaVis for scRNA-seq visualized elegantly

@@ -2,7 +2,6 @@
 
 export(run_seurat_pipeline)
 export(scrnaVis)
-import(Cairo)
 import(ComplexHeatmap)
 import(Seurat)
 import(dplyr)

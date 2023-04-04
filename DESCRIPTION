@@ -1,6 +1,6 @@
 Package: scrnaVis
 Title: Providing beautiful single-cell visualization figtures
-Version: 0.0.0.1
+Version: 1.0
 Authors@R: 
     person(given="Xiong", family="Yangjie", email="xiongyangjie2020@sibs.ac.cn", role = c("aut", "cre"))
 Description: 
@@ -31,7 +31,6 @@ Imports:
     egg,
     harmony,
     ComplexHeatmap,
-    Cairo,
     UCell (>= 2.3.1),
     irGSEA (>= 1.1.3)
 Remotes: 

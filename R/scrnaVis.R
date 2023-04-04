@@ -3,8 +3,8 @@
 #' @param object a seurat object which has run seurat pipeline
 #' @param markers  a gene list of cell-specific expression
 #' @import irGSEA gginnards msigdbr egg ggsci ggplot2 ComplexHeatmap dplyr Seurat
-#' @import ggstatsplot shinydashboard shiny Cairo
-#' @return shiny
+#' @import ggstatsplot shinydashboard shiny
+#' @return shiny web
 #' @export
 #' @examples
 #' \donttest{
@@ -187,7 +187,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 style = "display: inline-block;vertical-align:top; width: 100%;",
                 selectizeInput(
                   "select_gene","Genes Input",
-                  choice = gene,selected = NULL,multiple = T ,
+                  choice = NULL,selected = NULL,multiple = T ,
                   options = list(
                     delimiter = ',',
                     create = I(
@@ -275,7 +275,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
                 style = "display: inline-block;vertical-align:top; width: 100%;",
                 selectizeInput(
                   "select_geneset","Gene Sets",
-                  choice = geneset,selected = NULL,multiple = F ,
+                  choice = NULL,selected = NULL,multiple = F ,
                   options = list(
                     delimiter = ',',
                     create = I(
@@ -322,13 +322,17 @@ scrnaVis <- function(object=NULL, markers=NULL) {
 
   server <- function(input, output, session) {
     observeEvent(input$start, {
-    #显示运行
+      #显示运行
       showNotification(
         h1("START RUNNING", style = "color:red"),
         duration = 20,
         closeButton = F,
         action = a(href = "javascript:location.reload();")
       )
+
+      # 更新
+      updateSelectizeInput(session,"select_geneset",choices = geneset)
+      updateSelectizeInput(session,"select_gene",choices = gene)
       ############################## > TSNE  ##################################
       p1 <- TSNEPlot(object,group.by = input$select_ident,label = T) + ggtitle("")
 
@@ -362,7 +366,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           bf.message = F,
           proportion.test = F,
           label.args = list(
-            size = 2,
+            size = 2.4,
             fill = 'white',
             alpha = 0.85,
             fontface = 'bold'
@@ -571,7 +575,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       output$Enri_HeatmapPlot <- renderPlot({
         ir.heatmap
       })
-        
+
       output$download_Enri_HeatmapPlot <- downloadHandler(
         filename = function() {
           "Enriment_HeatmapPlot.pdf"
@@ -581,7 +585,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           print(p4)
           dev.off()
         }
-      ) 
+      )
       observeEvent(input$submit_geneset, {
         # featurePlot
         output$Enri_FeaturePlot <- renderPlot(

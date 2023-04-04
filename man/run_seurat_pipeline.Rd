@@ -9,9 +9,9 @@ run_seurat_pipeline(object = NULL, runSCTransform = TRUE, runHarmony = TRUE)
 \arguments{
 \item{object}{seurat object}
 
-\item{runSCTransform}{TRUE or FALSE,Deciding whether to standardize the data with sctransform}
+\item{runSCTransform}{TRUE or FALSE : whether to standardize the data with SCTransform}
 
-\item{runHarmony}{TRUE or FALSE,Deciding whether to remove batch use harmony}
+\item{runHarmony}{TRUE or FALSE: whether to remove batch use Harmony}
 }
 \value{
 a seurat object

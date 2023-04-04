@@ -5,8 +5,8 @@
 #'   So please do some common quality control on the data first,such as :
 #'   nFeature RNA; percent mt; cellcycle; double cells and more.
 #' @param object seurat object
-#' @param runSCTransform TRUE or FALSE,Deciding whether to standardize the data with sctransform
-#' @param runHarmony  TRUE or FALSE,Deciding whether to remove batch use harmony
+#' @param runSCTransform TRUE or FALSE : whether to standardize the data with SCTransform
+#' @param runHarmony  TRUE or FALSE: whether to remove batch use Harmony
 #' @return a seurat object
 #' @export
 #' @import Seurat harmony dplyr
@@ -38,7 +38,7 @@ run_seurat_pipeline <- function(object = NULL,runSCTransform = TRUE,runHarmony =
     ## do normalise
   } else {
       scRNA <- NormalizeData(object,normalization.method = "LogNormalize",scale.factor = 10000,assay = "RNA") %>%
-        FindVariableFeatures(selection.method = "vst",nfeatures = 3000,assay = "RNA") 
+        FindVariableFeatures(selection.method = "vst",nfeatures = 3000,assay = "RNA")
       scRNA %<>% ScaleData(features = VariableFeatures(scRNA), assay = "RNA") %>%
         RunPCA(assay = "RNA")
     # do harmony to remove batch
