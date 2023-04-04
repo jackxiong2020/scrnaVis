@@ -93,7 +93,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         ),
         ############################## > TSNE  ##################################
         fluidRow(
-          column(6,
+          column(width=6,
             box(
               width = 12,height = "800px",
               div(
@@ -109,7 +109,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             )
           ),
         ############################## > Statistical proportion  ##################################
-          column(6,
+          column(width=6,
             box(
               width = 12,height = "800px",
               div(
@@ -146,7 +146,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
          )
         ),
         fluidRow(
-          column(6,
+          column(width=6,
             tabBox(
               width = 12,height = "800px",
               tabPanel(
@@ -180,7 +180,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             )
           ),
         ############################## > FeaturePlot  ##################################
-          column(6,
+          column(width=6,
             box(
               width = 12,height = "800px",
               div(
