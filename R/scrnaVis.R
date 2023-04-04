@@ -420,7 +420,18 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         labs(x = NULL, y = NULL)
 
       output$DotPlot <- renderPlot({
-        p3
+        DotPlot(object,features = gene_markers,group.by = input$select_ident) &
+        coord_flip() & theme_bw() &
+        theme(
+          panel.grid = element_blank(),
+          axis.text.x = element_text(angle = 90,hjust = 1,vjust = 0.5,size = 12),
+          axis.text.y = element_text(face = "italic", size = 12)
+        ) &
+        scale_color_gradientn(
+          values = seq(0, 1, 0.2),
+          colors = c("#330066", "#336699", "#66CC66", "#FFCC33")
+        ) &
+        labs(x = NULL, y = NULL)
       })
       #download
       output$download_DotPlot = downloadHandler(
@@ -471,7 +482,17 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         }
 
       output$HeatmapPlot <- renderPlot({
-        heatmap
+        heatmap1 <- ComplexHeatmap::pheatmap(
+            heatmap_AveE,
+            cluster_cols = F,cluster_rows = F,show_colnames = T,show_rownames = T,border = T,
+              #border_color = "white",
+              color = c(
+                colorRampPalette(colors = c("#2166ac", "#f7fbff"))(length(bk) / 2),
+                colorRampPalette(colors = c("#f7fbff", "#b2182b"))(length(bk) / 1)
+              ),
+              breaks = bk,scale = "row",legend_breaks = seq(-1, 2, 1),name = "Exp"
+            )
+          heatmap1@row_names_param$gp <- grid::gpar(fontface = "italic")
       })
       # download
       output$download_HeatmapPlot <- downloadHandler(
