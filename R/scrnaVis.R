@@ -28,9 +28,9 @@ scrnaVis <- function(object=NULL, markers=NULL) {
     if(length(x) %in% c(0:8)) {
       return("400px")
     }else if(length(x) %in% c(9:16)) {
-      return("600px")
+      return("450px")
     }else if(length(x) > 16) {
-      return("800px")
+      return("500px")
     }
   }
   ############################## > Header  ##################################
