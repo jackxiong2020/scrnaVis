@@ -406,6 +406,20 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       )
       ############################## > marker Visualization  ##################################
       # Dotplot
+      p3_1 <- DotPlot(object,features = gene_markers,group.by = input$select_ident) +
+        coord_flip() + theme_bw() +
+        theme(
+          panel.grid = element_blank(),
+          axis.text.x = element_text(angle = 90,hjust = 1,vjust = 0.5,size = 12),
+          axis.text.y = element_text(face = "italic", size = 12)
+        ) +
+        scale_color_gradientn(
+          values = seq(0, 1, 0.2),
+          colors = c("#330066", "#336699", "#66CC66", "#FFCC33")
+        ) +
+        labs(x = NULL, y = NULL)
+      
+      
       p3 <- DotPlot(object,features = gene_markers,group.by = input$select_ident) +
         coord_flip() + theme_bw() +
         theme(
@@ -420,7 +434,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         labs(x = NULL, y = NULL)
 
       output$DotPlot <- renderPlot({
-        print(p3)
+        p3_1
       })
       #download
       output$download_DotPlot = downloadHandler(
@@ -471,7 +485,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         }
 
       output$HeatmapPlot <- renderPlot({
-        print(heatmap)
+        heatmap
       })
       # download
       output$download_HeatmapPlot <- downloadHandler(
@@ -564,7 +578,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         heatmap.width=22,
         heatmap.heigh=14
       )
-      p4 <- irGSEA::irGSEA.heatmap(
+      p5 <- irGSEA::irGSEA.heatmap(
         object = result.dge,
         method = "AUCell",
         top = 30,
@@ -582,7 +596,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
         },
         content = function(file) {
           pdf(file=file,width=16,height=10)
-          print(p4)
+          print(p5)
           dev.off()
         }
       )
