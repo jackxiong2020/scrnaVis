@@ -341,7 +341,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "TNSEPlot.pdf"
         },
         content = function(file) {
-          ggsave(p1, filename = file)
+          ggsave(p1, filename = file,width = 14, height = 10)
         }
       )
       ############################## > Proportion statistics  ##################################
@@ -398,9 +398,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "PropPlot.pdf"
         },
         content = function(file) {
-          pdf(file=file)
-          print(p2)
-          dev.off()
+          ggsave(p3, filename = file,width = 14, height = 10)
         }
       )
       ############################## > marker Visualization  ##################################
@@ -427,7 +425,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "DotPlot.pdf"
         },
         content = function(file) {
-          ggsave(p3, filename = file)
+          ggsave(p3, filename = file,width = 14, height = 10)
         }
       )
       # heatmapPlot
@@ -502,7 +500,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             "FeaturePlot.pdf"
           },
           content = function(file) {
-            ggsave(p3, filename = file)
+            ggsave(p3, filename = file,width = 14, height = 10)
           }
         )
       })
