@@ -366,7 +366,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             fill = 'white',
             alpha = 0.85,
             family = 'Arial',
-            fontfacet = 'bold'
+            fontface = 'bold'
           ),
           perc.k = 2,
           tilte = '',
@@ -398,7 +398,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
           "PropPlot.pdf"
         },
         content = function(file) {
-          ggsave(p3, filename = file,width = 14, height = 10)
+          ggsave(p2, filename = file,width = 14, height = 10)
         }
       )
       ############################## > marker Visualization  ##################################
