@@ -380,9 +380,9 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             axis.ticks.x = element_blank(),
             axis.ticks.y = element_line(color = 'black', lineend = 'round'),
             legend.position = 'right',
-            axis.text.x = element_text(size = 15,color = 'black'),
+            axis.text.x = element_text(size = 15,color = 'black',angle = 45,hjust=0.5,vjust =0.5 ),
             axis.text.y = element_text(size = 15,color = 'black'),
-            legend.text = element_text(size = 14,color = 'black'),
+            legend.text = element_text(size = 15,color = 'black'),
             legend.title = element_text(size = 15,color = 'black')
           )
 
