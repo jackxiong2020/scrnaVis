@@ -331,7 +331,6 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       )
 
       # 更新
-      updateSelectizeInput(session,"select_geneset",choices = geneset)
       updateSelectizeInput(session,"select_gene",choices = gene)
       ############################## > TSNE  ##################################
       p1 <- TSNEPlot(object,group.by = input$select_ident,label = T) + ggtitle("")
@@ -383,8 +382,8 @@ scrnaVis <- function(object=NULL, markers=NULL) {
             legend.position = 'right',
             axis.text.x = element_text(size = 15,color = 'black'),
             axis.text.y = element_text(size = 15,color = 'black'),
-            legend.text = element_text(size = 10,color = 'black'),
-            legend.title = element_text(size = 13,color = 'black')
+            legend.text = element_text(size = 14,color = 'black'),
+            legend.title = element_text(size = 15,color = 'black')
           )
 
         delete_layers(x = Prop_fig, match_type = 'GeomText')
@@ -536,6 +535,7 @@ scrnaVis <- function(object=NULL, markers=NULL) {
       })
 
       observeEvent(input$submit_gene_db, {
+        updateSelectizeInput(session,"select_geneset",choices = geneset)
         if (is.null(object@assays$SCT)) {
           GSEA <- irGSEA::irGSEA.score(
             object = object,
